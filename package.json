@@ -1,6 +1,15 @@
 {
-  "name": "angular-primitives",
-  "version": "0.0.0",
+  "name": "@sridhar_natuva/angular-primitives",
+  "version": "0.1.9-alpha.0",
+  "description": "Headless, directive-first UI primitives for Angular",
+  "keywords": [
+    "angular",
+    "signals",
+    "headless",
+    "primitives"
+  ],
+  "license": "MIT",
+  "author": "Siva Sridhar Natuva",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -20,7 +29,6 @@
       }
     ]
   },
-  "private": true,
   "packageManager": "npm@11.6.2",
   "dependencies": {
     "@angular/common": "^21.0.0",
@@ -33,8 +41,12 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular/build": "^21.0.4",
     "@angular/cli": "^21.0.0",
     "@angular/compiler-cli": "^21.0.0",
-    "typescript": "~5.9.2"
+    "jsdom": "^27.1.0",
+    "ng-packagr": "^21.0.0",
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8"
   }
 }

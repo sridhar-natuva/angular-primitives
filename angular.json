@@ -2,9 +2,36 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "9743abff-35ec-44c1-8fbf-af670d190d5f"
   },
   "newProjectRoot": "projects",
   "projects": {
+    "primitives": {
+      "projectType": "library",
+      "root": "projects/primitives",
+      "sourceRoot": "projects/primitives/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/primitives/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/primitives/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/primitives/tsconfig.spec.json"
+          }
+        }
+      }
+    }
   }
 }
