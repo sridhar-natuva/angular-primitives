@@ -9,8 +9,7 @@ export class TabContentDirective {
     private state = inject(TabsState);
     constructor(
         template: TemplateRef<unknown>,
-        vcr: ViewContainerRef,
-        // private readonly state: TabsState
+        vcr: ViewContainerRef
     ) {
         effect(() => {
             vcr.clear();

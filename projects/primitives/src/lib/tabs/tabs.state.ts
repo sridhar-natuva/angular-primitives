@@ -35,7 +35,6 @@ export class TabsState {
 
     select(id: string): void {
         const panel = this._panels().find(p => p.id === id && !p.disabled);
-        console.log('TabsState select called with id:', id, 'found panel:', panel);
         if (panel) {
             this._activeId.set(id);
         }

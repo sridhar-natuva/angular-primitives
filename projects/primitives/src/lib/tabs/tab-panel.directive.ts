@@ -1,4 +1,4 @@
-import { Directive, OnInit, OnDestroy, input, inject, Input } from '@angular/core';
+import { Directive, OnInit, OnDestroy, input, inject, Input, HostBinding } from '@angular/core';
 import { TabsState } from './tabs.state';
 
 @Directive({
@@ -6,6 +6,8 @@ import { TabsState } from './tabs.state';
     standalone: true,
     exportAs: 'apTabPanel',
     host: {
+        'role': 'tabpanel',
+        '[attr.aria-labelledby]': '`ap-tab-${id}`',
         '[style.display]': 'isActive() ? "block" : "none"',
         '[attr.aria-hidden]': '!isActive()'
     }
