@@ -1,5 +1,6 @@
-import { Directive, OnInit, OnDestroy, input, inject, Input, HostBinding } from '@angular/core';
+import { Directive, OnInit, OnDestroy, inject, Input } from '@angular/core';
 import { TabsState } from './tabs.state';
+import { TabPanel } from '@angular/aria/tabs';
 
 @Directive({
     selector: '[apTabPanel]',
@@ -7,28 +8,39 @@ import { TabsState } from './tabs.state';
     exportAs: 'apTabPanel',
     host: {
         'role': 'tabpanel',
-        '[attr.aria-labelledby]': '`ap-tab-${id}`',
+        // Use the ID from the injected ariaPanel
+        '[attr.aria-labelledby]': '`ap-tab-${ariaPanel.value}`',
         '[style.display]': 'isActive() ? "block" : "none"',
         '[attr.aria-hidden]': '!isActive()'
-    }
+    },
+    hostDirectives: [{
+        directive: TabPanel,
+        // We map the public "id" attribute of your directive 
+        // to the "value" property of the TabPanel primitive.
+        inputs: ['id', 'value']
+    }]
 })
 export class TabPanelDirective implements OnInit, OnDestroy {
-    @Input({ required: true }) id!: string;
+    // 1. Inject the host directive instance
+    protected ariaPanel = inject(TabPanel);
+
     @Input() disabled = false;
     private state = inject(TabsState);
 
     ngOnInit(): void {
+        // 2. Use ariaPanel.value (which holds the 'id' passed by the user)
         this.state.register({
-            id: this.id,
+            id: this.ariaPanel.value() as string,
             disabled: this.disabled
         });
     }
 
     ngOnDestroy(): void {
-        this.state.unregister(this.id);
+        this.state.unregister(this.ariaPanel.value() as string);
     }
 
     isActive(): boolean {
-        return this.state.activeId() === this.id;
+        // 3. Compare the active state against the primitive's value
+        return this.state.activeId() === this.ariaPanel.value();
     }
 }

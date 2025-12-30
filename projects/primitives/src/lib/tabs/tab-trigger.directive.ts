@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Host, HostBinding, HostListener, inject, Input, input } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
 import { TabsState } from './tabs.state';
-import { TabsDirective } from './tabs.directive';
+import { Tab } from '@angular/aria/tabs';
 
 @Directive({
     selector: '[apTabTrigger]',
@@ -11,7 +11,14 @@ import { TabsDirective } from './tabs.directive';
         '[attr.aria-selected]': 'state.activeId() === tabId',
         '[attr.aria-disabled]': 'disabled',
         '(click)': 'activate()'
-    }
+    },
+    providers: [
+        { provide: Tab, useExisting: Tab }
+    ],
+    hostDirectives: [{
+        directive: Tab,
+        inputs: ['value: tabId']
+    }]
 })
 export class TabTriggerDirective implements FocusableOption {
     @Input({ required: true }) tabId: string = '';
